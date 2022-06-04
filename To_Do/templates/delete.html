@@ -6,6 +6,8 @@
   <form action="" method="post">{% csrf_token %}
     <div class="alert alert-danger" role="alert">Are you sure you want to delete "{{ object }}"?</div>
     <button type="submit" class="btn btn-success">Delete</button>
+    <a href={% url 'home' %}
+     class="btn btn-danger">Cancel</a>
   </form>
 </div>
 

@@ -504,14 +504,13 @@ background-color: #f9f9fa
 
 {% if messages %}
 {% for message in messages %}
-{% if massage.level == DEFAULT_MASSAGE_LEVEL.SUCCESS %}
-<div class="alert alert-success d-flex align-items-center" role="alert">
+
+<div class='alert alert-{{ message.tags}}'>
     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-    <div>
       {{message}}
-    </div>
-  </div>
-{%endif%}
+</div>
+
+
 {% endfor %}
 {% endif %}
 
@@ -548,12 +547,16 @@ background-color: #f9f9fa
                         <li class="uncompleted">
                     {%endif%}
                         <div class="form-check">
-                            <label class="form-check-label">
-                                
-                              <input class="checkbox" type="checkbox"  {% if t.complit%} checked {%endif%}>
-                              {{t.title}} 
-                          <i class="input-helper"></i>
-                          </label>
+                            <form method="post"> 
+                                {%csrf_token%}
+                                <label class="form-check-label">
+                                    <input type="hidden" name="todo_id" value={{t.id}}>
+                                    <input class="checkbox" onChange="submit();"    type="checkbox"  {% if t.complit%} checked {%endif%}>
+                            </form> 
+                                    {{t.title}} 
+                                    <i class="input-helper"></i>
+                                </label>
+                            
                         </div>                          
                         <a>
                             <a style="margin-left: auto" href={%url 'update_task' t.id %}><i
